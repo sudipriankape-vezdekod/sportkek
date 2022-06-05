@@ -9,6 +9,8 @@ for line in sys.stdin.readlines():
     res = requests.get(CODEFORCES_API_STATUS, params={
         "handle": handle
     })
+    if res.status_code != requests.codes.ok:
+        print(handle, 0)
     submissions = res.json()['result']
     problems = [submission['problem'] for submission in submissions]
     problems = set((problem['contestId'], problem['index'])
